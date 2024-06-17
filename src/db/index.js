@@ -12,5 +12,7 @@ const connectDB = async () => {
         process.exit(1)
     }
 }
+//NOTE: When async function is completed then it will retur a promise
+
 
 export default connectDB
