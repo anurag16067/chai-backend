@@ -4,13 +4,11 @@ import dotenv from "dotenv"
 import mongoose, { connect } from "mongoose";
 import { DB_NAME } from "./constants.js";
 import connectDB from "./db/index.js";
+import { app } from "./app.js";
 
 dotenv.config({
     path: './env'
 })
-
-
-
 
 connectDB()
 //Since database is connect with async function so that it will return a promises after database with succesful comolete.
