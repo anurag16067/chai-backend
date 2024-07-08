@@ -1,6 +1,6 @@
 # starting backend web development with chai and code youtube channel with hitesh chaudhary
 
-This is videp series on backend development with javascript
+This is video series on backend development with javascript
 
 Nodemon is used to restart server when new file is introduce in code
 
