@@ -22,14 +22,21 @@ const registerUser = asyncHandler( async (req, res) => {
     // check for user creation
     // return res
 
+    //Extracting data from body
     const { fullName, email, username, password } = req.body
+    console.log("FullName: ", fullName);
     console.log("email: ", email);
+    console.log("username: ", username);
+    console.log("req.body: ", req.body)
+
+
     //we can use if condition for validation for all but we can use single if
     // if(fullName === ""){
     //     throw new ApiError(400, "full name is required")
     // }
 
     //validation -(not empty)
+    //checking if someone send empty
     if(
         [fullName, email, username, password].some((field) => 
         field?.trim() === "")
@@ -37,7 +44,8 @@ const registerUser = asyncHandler( async (req, res) => {
         throw new ApiError(400, "All field are required")
     }
 
-    const existedUser = User.findOne({
+    //checking if already user exist with username or email
+    const existedUser = await User.findOne({
         $or: [{username}, {email}]
     })
     if(existedUser){
@@ -46,8 +54,16 @@ const registerUser = asyncHandler( async (req, res) => {
 
 //check for images, check for avatar
     //file handling from multer
-    const avatarLocalPath = req.files?.avatar[0]?.path //this on server not on cloudinary
+    const avatarLocalPath = req.files?.avatar[0]?.path; //this on server not on cloudinary
     const coverImageLocalPath = req.files?.coverImage[0]?.path;
+
+    //check if cover image come or not
+    /*let coverImageLocalPath;
+    if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0){
+        coverImage = req.files.coverImage[0].path
+    }*/
+
+
     if(!avatarLocalPath){
         throw new ApiError(400, "Avatar file is required")
     }
